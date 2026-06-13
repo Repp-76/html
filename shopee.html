@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shopee — Beli Lebih, Jimat Lebih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#EE4D2D;
+  --red2:#D73211;
+  --orange:#F5A623;
+  --bg:#F5F5F5;
+  --white:#FFFFFF;
+  --text:#333;
+  --muted:#757575;
+  --light:#EDEDED;
+  --border:#E8E8E8;
+  --green:#27AE60;
+  --badge:#FF6B35;
+}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+img{display:block}
+
+/* ─── TOP BAR ─────────────────────────────────── */
+.topbar{
+  background:#C13515;
+  padding:0 clamp(1rem,4vw,2rem);
+  display:flex;align-items:center;justify-content:space-between;
+  height:28px;font-size:11px;color:rgba(255,255,255,0.85);
+}
+.topbar-left{display:flex;gap:1.2rem;align-items:center}
+.topbar-left a{color:rgba(255,255,255,0.85);transition:color .15s}
+.topbar-left a:hover{color:#fff}
+.topbar-divider{width:1px;height:12px;background:rgba(255,255,255,0.25)}
+.topbar-right{display:flex;gap:1rem;align-items:center}
+.topbar-right a{color:rgba(255,255,255,0.85)}
+.topbar-right a:hover{color:#fff}
+@media(max-width:600px){.topbar-left span:not(:first-child),.topbar-divider{display:none}.topbar-right{gap:.6rem}}
+
+/* ─── HEADER ─────────────────────────────────── */
+header{
+  background:var(--red);
+  padding:0.7rem clamp(1rem,4vw,2rem);
+  display:flex;align-items:center;gap:1rem;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+.logo-wrap{display:flex;align-items:center;gap:.35rem;flex-shrink:0}
+.logo-text{
+  font-size:1.65rem;font-weight:700;color:#fff;
+  letter-spacing:-.5px;line-height:1;
+}
+.logo-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#FFD700;margin-top:auto;margin-bottom:3px;
+}
+.search-bar{
+  flex:1;display:flex;max-width:680px;
+  background:#fff;border-radius:2px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(0,0,0,0.12);
+}
+.search-bar input{
+  flex:1;border:none;outline:none;padding:.55rem .85rem;
+  font-size:.9rem;color:var(--text);background:transparent;
+}
+.search-bar input::placeholder{color:#AAAAAA}
+.search-btn{
+  background:#F5A623;border:none;padding:0 1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;flex-shrink:0;
+}
+.search-btn:hover{background:#E09410}
+.search-btn svg{width:18px;height:18px;fill:#fff}
+.header-actions{display:flex;align-items:center;gap:1.1rem;flex-shrink:0}
+.header-icon{
+  display:flex;flex-direction:column;align-items:center;
+  gap:2px;color:#fff;font-size:10px;font-weight:500;
+  position:relative;padding:.1rem .2rem;
+}
+.header-icon svg{width:22px;height:22px;fill:#fff}
+.badge{
+  position:absolute;top:-4px;right:-6px;
+  background:#fff;color:var(--red);
+  font-size:9px;font-weight:700;
+  border-radius:999px;min-width:16px;height:16px;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 3px;line-height:1;
+}
+@media(max-width:520px){
+  .header-actions .header-icon span{display:none}
+  .logo-text{font-size:1.3rem}
+}
+
+/* ─── NAV TABS ───────────────────────────────── */
+.nav-tabs{
+  background:#fff;
+  border-bottom:2px solid var(--border);
+  padding:0 clamp(1rem,4vw,2rem);
+  display:flex;gap:0;overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{
+  padding:.65rem 1rem;font-size:.8125rem;
+  color:var(--muted);white-space:nowrap;
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:color .15s,border-color .15s;
+  display:flex;align-items:center;gap:.3rem;
+}
+.nav-tab:hover{color:var(--red)}
+.nav-tab.active{color:var(--red);border-bottom-color:var(--red);font-weight:600}
+.nav-tab .fire{font-size:.7rem}
+
+/* ─── CONTAINER ──────────────────────────────── */
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(.75rem,3vw,1.5rem)}
+
+/* ─── HERO BANNER ────────────────────────────── */
+.hero-section{padding:1rem 0 .75rem}
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:.75rem}
+.hero-main{
+  background:linear-gradient(135deg,#EE4D2D 0%,#FF7043 50%,#F5A623 100%);
+  border-radius:4px;padding:2rem 2rem 1.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:200px;position:relative;overflow:hidden;
+}
+.hero-main::before{
+  content:'';position:absolute;right:-30px;top:-30px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,0.07);pointer-events:none;
+}
+.hero-main::after{
+  content:'';position:absolute;right:40px;bottom:-40px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,0.05);pointer-events:none;
+}
+.hero-badge{
+  display:inline-block;background:rgba(255,255,255,0.22);
+  color:#fff;font-size:.7rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.25rem .65rem;border-radius:2px;margin-bottom:.75rem;
+  width:fit-content;
+}
+.hero-main h2{
+  font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;
+  color:#fff;line-height:1.2;margin-bottom:.5rem;position:relative;z-index:1;
+}
+.hero-main p{
+  font-size:.82rem;color:rgba(255,255,255,0.85);
+  margin-bottom:1.2rem;position:relative;z-index:1;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:#fff;color:var(--red);
+  font-size:.8rem;font-weight:700;
+  padding:.5rem 1.2rem;border-radius:2px;
+  border:none;width:fit-content;
+  transition:box-shadow .15s;position:relative;z-index:1;
+}
+.hero-cta:hover{box-shadow:0 2px 8px rgba(0,0,0,0.18)}
+.hero-side{display:flex;flex-direction:column;gap:.75rem}
+.hero-mini{
+  border-radius:4px;padding:1.1rem 1.2rem;flex:1;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.hero-mini-1{background:linear-gradient(135deg,#1565C0,#42A5F5)}
+.hero-mini-2{background:linear-gradient(135deg,#2E7D32,#66BB6A)}
+.hero-mini span{font-size:.7rem;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:.07em}
+.hero-mini strong{display:block;font-size:1rem;font-weight:700;color:#fff;margin:.2rem 0}
+.hero-mini em{font-style:normal;font-size:.75rem;color:rgba(255,255,255,0.8)}
+@media(max-width:640px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-side{flex-direction:row}
+  .hero-mini{min-height:80px}
+}
+
+/* ─── COUPON STRIP ───────────────────────────── */
+.coupon-strip{
+  background:#fff3f0;
+  border:1.5px dashed #F5956A;
+  border-radius:4px;
+  margin:.75rem 0;
+  padding:1rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+}
+.coupon-strip-left{display:flex;align-items:center;gap:.85rem}
+.coupon-icon-wrap{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.coupon-icon-wrap svg{width:22px;height:22px;fill:#fff}
+.coupon-strip-left h3{font-size:.9rem;font-weight:700;color:var(--red);margin-bottom:.15rem}
+.coupon-strip-left p{font-size:.78rem;color:var(--muted)}
+.btn-claim-strip{
+  background:var(--red);color:#fff;border:none;
+  padding:.55rem 1.5rem;border-radius:2px;
+  font-size:.82rem;font-weight:600;
+  white-space:nowrap;
+  transition:background .15s;flex-shrink:0;
+}
+.btn-claim-strip:hover{background:var(--red2)}
+
+/* ─── SECTION TITLE ──────────────────────────── */
+.section-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.5rem 0 .85rem;
+}
+.section-hd h2{
+  font-size:1rem;font-weight:700;color:var(--text);
+  display:flex;align-items:center;gap:.4rem;
+}
+.section-hd h2::before{
+  content:'';display:block;width:4px;height:18px;
+  background:var(--red);border-radius:2px;
+}
+.see-all{font-size:.78rem;color:var(--red);font-weight:500}
+.see-all:hover{text-decoration:underline}
+
+/* ─── CATEGORY GRID ──────────────────────────── */
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(72px,1fr));
+  gap:.5rem;
+  padding-bottom:.5rem;
+}
+.cat-item{
+  display:flex;flex-direction:column;align-items:center;
+  gap:.45rem;padding:.7rem .4rem;
+  background:#fff;border-radius:4px;
+  border:1px solid var(--border);
+  transition:box-shadow .15s,border-color .15s;
+  cursor:pointer;
+}
+.cat-item:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:#ddd}
+.cat-emoji{font-size:1.6rem;line-height:1}
+.cat-item span{font-size:.68rem;color:var(--text);text-align:center;line-height:1.3;font-weight:500}
+
+/* ─── FLASH SALE ─────────────────────────────── */
+.flash-hd{
+  display:flex;align-items:center;gap:1rem;
+  padding:.5rem 0 .85rem;flex-wrap:wrap;
+}
+.flash-title{
+  font-size:1rem;font-weight:700;color:var(--red);
+  display:flex;align-items:center;gap:.4rem;
+}
+.flash-title::before{
+  content:'';display:block;width:4px;height:18px;
+  background:var(--red);border-radius:2px;
+}
+.countdown{display:flex;align-items:center;gap:.3rem}
+.cd-block{
+  background:var(--text);color:#fff;
+  font-size:.8rem;font-weight:700;
+  padding:.18rem .4rem;border-radius:2px;min-width:26px;text-align:center;
+}
+.cd-sep{font-weight:700;font-size:.85rem;color:var(--text)}
+
+.product-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:.6rem;
+}
+.product-card{
+  background:#fff;border-radius:4px;
+  border:1px solid var(--border);overflow:hidden;
+  transition:box-shadow .15s,transform .15s;
+  cursor:pointer;
+}
+.product-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+.prod-img{
+  width:100%;aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;background:#fafafa;position:relative;
+}
+.prod-flash-badge{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(90deg,var(--red),var(--orange));
+  color:#fff;font-size:.65rem;font-weight:700;
+  text-align:center;padding:.18rem;letter-spacing:.04em;
+}
+.prod-info{padding:.6rem .7rem .75rem}
+.prod-name{
+  font-size:.78rem;color:var(--text);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  margin-bottom:.4rem;
+}
+.prod-price-row{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.25rem;flex-wrap:wrap}
+.prod-price{font-size:.95rem;font-weight:700;color:var(--red)}
+.prod-ori{font-size:.7rem;color:#AAAAAA;text-decoration:line-through}
+.prod-disc{
+  font-size:.65rem;font-weight:700;color:#fff;
+  background:var(--badge);padding:.1rem .3rem;border-radius:2px;
+}
+.prod-sold{font-size:.68rem;color:var(--muted)}
+.sold-bar{
+  height:3px;background:var(--light);border-radius:999px;
+  margin-top:.3rem;overflow:hidden;
+}
+.sold-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--red));border-radius:999px}
+
+/* ─── PROMO BANNER ───────────────────────────── */
+.promo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:.75rem}
+.promo-card{
+  border-radius:4px;padding:1.1rem 1.25rem;
+  display:flex;align-items:center;gap:.85rem;
+  transition:opacity .15s;
+}
+.promo-card:hover{opacity:.9}
+.promo-card-1{background:linear-gradient(135deg,#6A1B9A,#AB47BC)}
+.promo-card-2{background:linear-gradient(135deg,#E65100,#FFA726)}
+.promo-card-3{background:linear-gradient(135deg,#00695C,#26A69A)}
+.promo-emoji{font-size:2rem;flex-shrink:0}
+.promo-card strong{display:block;font-size:.85rem;font-weight:700;color:#fff;margin-bottom:.15rem}
+.promo-card span{font-size:.72rem;color:rgba(255,255,255,.8)}
+@media(max-width:560px){.promo-grid{grid-template-columns:1fr}}
+
+/* ─── ALL PRODUCTS ───────────────────────────── */
+.all-products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:.6rem;
+}
+.prod-card-b{
+  background:#fff;border-radius:4px;border:1px solid var(--border);
+  overflow:hidden;transition:box-shadow .15s,transform .15s;cursor:pointer;
+}
+.prod-card-b:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
+.prod-card-b .prod-img{font-size:3.2rem}
+.prod-card-b .prod-info{padding:.55rem .65rem .7rem}
+.prod-rating{display:flex;align-items:center;gap:.25rem;font-size:.68rem;color:#FFB800;margin-bottom:.2rem}
+.prod-rating span{color:var(--muted)}
+.prod-loc{font-size:.65rem;color:var(--muted);margin-top:.2rem;display:flex;align-items:center;gap:.2rem}
+.prod-loc::before{content:'📍';font-size:.6rem}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer{background:#fff;border-top:1px solid var(--border);margin-top:2rem}
+.footer-top{
+  border-bottom:1px solid var(--border);
+  padding:1.5rem clamp(1rem,4vw,2rem);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1.5rem;
+}
+.footer-col h4{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.85rem;text-transform:uppercase;letter-spacing:.06em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul li a{font-size:.78rem;color:var(--muted);transition:color .15s}
+.footer-col ul li a:hover{color:var(--red)}
+.footer-bottom{
+  padding:.9rem clamp(1rem,4vw,2rem);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.5rem;
+}
+.footer-bottom p{font-size:.72rem;color:#AAAAAA}
+.footer-pay{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.pay-tag{
+  background:var(--light);border-radius:3px;
+  padding:.25rem .5rem;font-size:.65rem;font-weight:600;color:var(--muted);
+}
+
+/* ─── OVERLAY ────────────────────────────────── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;z-index:999;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.overlay.active{opacity:1;pointer-events:all}
+
+/* ─── MODAL: ENTER NAME ──────────────────────── */
+.modal{
+  background:#fff;border-radius:6px;width:100%;max-width:420px;
+  overflow:hidden;
+  transform:translateY(20px) scale(.97);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),opacity .25s ease;
+  opacity:0;
+}
+.overlay.active .modal{transform:translateY(0) scale(1);opacity:1;transition-delay:.04s}
+.modal-header{
+  background:var(--red);
+  padding:1.1rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-header h3{font-size:.95rem;font-weight:700;color:#fff}
+.modal-close{
+  background:rgba(255,255,255,.2);border:none;color:#fff;
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;line-height:1;cursor:pointer;
+  transition:background .15s;
+}
+.modal-close:hover{background:rgba(255,255,255,.35)}
+.modal-body{padding:1.5rem 1.25rem}
+.modal-body p{font-size:.82rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.6}
+.modal-label{
+  display:block;font-size:.75rem;font-weight:600;
+  color:var(--text);margin-bottom:.4rem;
+}
+.modal-input{
+  width:100%;border:1.5px solid var(--border);border-radius:3px;
+  padding:.65rem .85rem;font-size:.9rem;font-family:'Inter',sans-serif;
+  color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.modal-input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(238,77,45,.1)}
+.modal-input.err{border-color:#E74C3C;box-shadow:0 0 0 3px rgba(231,76,60,.1)}
+.modal-err{font-size:.72rem;color:#E74C3C;margin-top:.35rem;display:none}
+.modal-err.show{display:block}
+.modal-footer{padding:0 1.25rem 1.25rem;display:flex;gap:.6rem}
+.btn-cancel{
+  flex:1;background:var(--light);border:none;border-radius:3px;
+  padding:.7rem;font-size:.82rem;font-weight:500;color:var(--muted);
+  transition:background .15s;
+}
+.btn-cancel:hover{background:#DCDCDC}
+.btn-submit{
+  flex:2;background:var(--red);border:none;border-radius:3px;
+  padding:.7rem;font-size:.82rem;font-weight:700;color:#fff;
+  transition:background .15s;
+}
+.btn-submit:hover{background:var(--red2)}
+
+/* ─── COUPON RESULT OVERLAY ──────────────────── */
+.overlay2{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;z-index:1000;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.overlay2.active{opacity:1;pointer-events:all}
+.coupon-modal{
+  background:#fff;border-radius:6px;width:100%;max-width:400px;
+  overflow:hidden;
+  transform:translateY(20px) scale(.97);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),opacity .25s ease;
+  opacity:0;
+}
+.overlay2.active .coupon-modal{transform:translateY(0) scale(1);opacity:1;transition-delay:.04s}
+.coup-head{
+  background:linear-gradient(135deg,var(--red),#FF7043);
+  padding:1.75rem 1.5rem 1.25rem;
+  text-align:center;
+  position:relative;
+}
+.coup-head::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:20px;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 12px,#fff 12px,#fff 16px);
+}
+.coup-check{
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .85rem;font-size:1.6rem;
+}
+.coup-head h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.coup-head p{font-size:.8rem;color:rgba(255,255,255,.8)}
+.coup-body{padding:2rem 1.5rem 1.25rem;text-align:center}
+.coup-pct{
+  font-size:5rem;font-weight:700;color:var(--red);line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;
+}
+.coup-pct sup{font-size:.35em;font-weight:700;vertical-align:super;letter-spacing:0;color:var(--red)}
+.coup-pct-label{font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:.2rem 0 1.4rem}
+.coup-divider{
+  border:none;
+  border-top:1.5px dashed var(--border);margin:0 0 1.25rem;
+}
+.coup-code-box{
+  background:#FFF3F0;border:1px dashed var(--red);
+  border-radius:4px;padding:.7rem 1rem;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;
+}
+.coup-code-box span:first-child{font-size:.7rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.coup-code-val{font-size:.9rem;font-weight:700;color:var(--red);letter-spacing:.1em}
+.coup-msg{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:1.4rem}
+.coup-msg strong{color:var(--red)}
+.coup-expiry{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:var(--light);border-radius:2px;
+  padding:.3rem .7rem;font-size:.7rem;color:var(--muted);margin-bottom:1.25rem;
+}
+.btn-use-now{
+  width:100%;background:var(--red);color:#fff;border:none;
+  border-radius:3px;padding:.8rem;
+  font-size:.85rem;font-weight:700;margin-bottom:.6rem;
+  transition:background .15s;
+}
+.btn-use-now:hover{background:var(--red2)}
+.btn-later{
+  width:100%;background:transparent;border:1.5px solid var(--border);
+  border-radius:3px;padding:.7rem;color:var(--muted);
+  font-size:.8rem;font-weight:500;transition:background .15s;
+}
+.btn-later:hover{background:var(--light)}
+
+/* ─── TOAST ──────────────────────────────────── */
+.toast{
+  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(60px);
+  background:#333;color:#fff;padding:.6rem 1.2rem;border-radius:4px;
+  font-size:.82rem;font-weight:500;z-index:2000;
+  transition:transform .3s ease,opacity .3s ease;opacity:0;white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─────────────────────────────────── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="#">Jual di Shopee</a>
+    <div class="topbar-divider"></div>
+    <a href="#">Muat Turun Aplikasi</a>
+    <div class="topbar-divider"></div>
+    <a href="#">Ikuti kami</a>
+  </div>
+  <div class="topbar-right">
+    <a href="#">Notifikasi</a>
+    <a href="#">Bantuan</a>
+    <a href="#">Daftar</a>
+    <a href="#"><strong>Log Masuk</strong></a>
+  </div>
+</div>
+
+<!-- ─── HEADER ─────────────────────────────────── -->
+<header>
+  <div class="logo-wrap">
+    <span class="logo-text">Shopee</span>
+    <div class="logo-dot"></div>
+  </div>
+  <div class="search-bar">
+    <input type="text" placeholder="Cari produk, jenama, dan kedai..."/>
+    <button class="search-btn" aria-label="Cari">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+  </div>
+  <div class="header-actions">
+    <div class="header-icon" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.83 13h7.34l1.82-7H5.21L4.27 3H1v2h2l3.6 8.59L5.25 16c-.16.28-.25.61-.25.95C5 18.1 5.9 19 7 19h12v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12.9-1.63z"/></svg>
+      <span>Troli</span>
+      <div class="badge">3</div>
+    </div>
+    <div class="header-icon" style="cursor:pointer">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>Notifikasi</span>
+      <div class="badge" style="background:var(--red);color:#fff">5</div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── NAV TABS ───────────────────────────────── -->
+<div class="nav-tabs">
+  <a class="nav-tab active" href="#">Flash Sale <span class="fire">🔥</span></a>
+  <a class="nav-tab" href="#">Shopee Mall</a>
+  <a class="nav-tab" href="#">Bebas Ongkir</a>
+  <a class="nav-tab" href="#">Coins & Voucher</a>
+  <a class="nav-tab" href="#">Pilihan Hari Ini</a>
+  <a class="nav-tab" href="#">Produk Tempatan</a>
+  <a class="nav-tab" href="#">Elektronik</a>
+  <a class="nav-tab" href="#">Fesyen</a>
+  <a class="nav-tab" href="#">Kecantikan</a>
+</div>
+
+<!-- ─── PAGE CONTENT ───────────────────────────── -->
+<div class="container">
+
+  <!-- HERO BANNER -->
+  <div class="hero-section">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="hero-badge">🎉 Mega Sale — Harjadi Shopee</div>
+        <h2>Diskaun Hingga<br/>95% Setiap Hari</h2>
+        <p>Ribuan produk dengan harga yang anda tidak akan jumpa di tempat lain.</p>
+        <button class="hero-cta">Beli Sekarang →</button>
+      </div>
+      <div class="hero-side">
+        <div class="hero-mini hero-mini-1">
+          <span>Harga Bawah</span>
+          <strong>RM 9 Sahaja</strong>
+          <em>Barangan Elektrik Pilihan</em>
+        </div>
+        <div class="hero-mini hero-mini-2">
+          <span>Penghantaran</span>
+          <strong>Percuma ke Seluruh M'sia</strong>
+          <em>Tiada Minimum Pembelian</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUPON CLAIM STRIP -->
+  <div class="coupon-strip">
+    <div class="coupon-strip-left">
+      <div class="coupon-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-2-1.46c-.83.51-1.5 1.24-1.86 2.15L9.89 14.3A4.002 4.002 0 0 0 6 10.54V8h12v2.54zM7 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+      </div>
+      <div>
+        <h3>Tuntut Voucher Anda Sekarang!</h3>
+        <p>Masukkan nama anda dan dapatkan diskaun eksklusif secara rawak — sehingga 95% off.</p>
+      </div>
+    </div>
+    <button class="btn-claim-strip" onclick="openModal()">Tuntut Voucher →</button>
+  </div>
+
+  <!-- KATEGORI -->
+  <div class="section-hd">
+    <h2>Kategori Popular</h2>
+    <a href="#" class="see-all">Lihat Semua &rsaquo;</a>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-item"><div class="cat-emoji">📱</div><span>Telefon & Aksesori</span></div>
+    <div class="cat-item"><div class="cat-emoji">👗</div><span>Fesyen Wanita</span></div>
+    <div class="cat-item"><div class="cat-emoji">👔</div><span>Fesyen Lelaki</span></div>
+    <div class="cat-item"><div class="cat-emoji">💄</div><span>Kecantikan</span></div>
+    <div class="cat-item"><div class="cat-emoji">🏠</div><span>Rumah & Hiasan</span></div>
+    <div class="cat-item"><div class="cat-emoji">💻</div><span>Komputer & Laptop</span></div>
+    <div class="cat-item"><div class="cat-emoji">🎮</div><span>Gaming</span></div>
+    <div class="cat-item"><div class="cat-emoji">📷</div><span>Kamera</span></div>
+    <div class="cat-item"><div class="cat-emoji">🍳</div><span>Dapur & Makan</span></div>
+    <div class="cat-item"><div class="cat-emoji">🧴</div><span>Kesihatan</span></div>
+    <div class="cat-item"><div class="cat-emoji">🧸</div><span>Ibu & Bayi</span></div>
+    <div class="cat-item"><div class="cat-emoji">🚗</div><span>Automotif</span></div>
+  </div>
+
+  <!-- FLASH SALE -->
+  <div class="flash-hd">
+    <div class="flash-title">⚡ Flash Sale</div>
+    <div class="countdown">
+      <span style="font-size:.78rem;color:var(--muted)">Tamat dalam</span>
+      <div class="cd-block" id="cd-h">02</div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block" id="cd-m">47</div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block" id="cd-s">31</div>
+    </div>
+    <a href="#" class="see-all" style="margin-left:auto">Lihat Semua &rsaquo;</a>
+  </div>
+  <div class="product-row">
+    <div class="product-card">
+      <div class="prod-img">📱<div class="prod-flash-badge">🔥 FLASH SALE</div></div>
+      <div class="prod-info">
+        <p class="prod-name">Telefon Pintar 6.7" RAM 12GB Kamera 108MP Bateri 5000mAh</p>
+        <div class="prod-price-row">
+          <span class="prod-price">RM 399</span>
+          <span class="prod-ori">RM 1,299</span>
+          <span class="prod-disc">-69%</span>
+        </div>
+        <p class="prod-sold">Terjual 2.3k</p>
+        <div class="sold-bar"><div class="sold-fill" style="width:78%"></div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="prod-img">🎧<div class="prod-flash-badge">🔥 FLASH SALE</div></div>
+      <div class="prod-info">
+        <p class="prod-name">Fon Telinga Wayarles Noise Cancelling 40H Bateri</p>
+        <div class="prod-price-row">
+          <span class="prod-price">RM 89</span>
+          <span class="prod-ori">RM 329</span>
+          <span class="prod-disc">-73%</span>
+        </div>
+        <p class="prod-sold">Terjual 5.1k</p>
+        <div class="sold-bar"><div class="sold-fill" style="width:92%"></div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="prod-img">⌚<div class="prod-flash-badge">🔥 FLASH SALE</div></div>
+      <div class="prod-info">
+        <p class="prod-name">Jam Tangan Pintar SpO2 & GPS Tahan Air 50M</p>
+        <div class="prod-price-row">
+          <span class="prod-price">RM 149</span>
+          <span class="prod-ori">RM 599</span>
+          <span class="prod-disc">-75%</span>
+        </div>
+        <p class="prod-sold">Terjual 892</p>
+        <div class="sold-bar"><div class="sold-fill" style="width:55%"></div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="prod-img">💻<div class="prod-flash-badge">🔥 FLASH SALE</div></div>
+      <div class="prod-info">
+        <p class="prod-name">Komputer Riba 14" FHD IPS i5 Gen12 SSD 512GB</p>
+        <div class="prod-price-row">
+          <span class="prod-price">RM 1,299</span>
+          <span class="prod-ori">RM 2,999</span>
+          <span class="prod-disc">-57%</span>
+        </div>
+        <p class="prod-sold">Terjual 341</p>
+        <div class="sold-bar"><div class="sold-fill" style="width:34%"></div></div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="prod-img">🎮<div class="prod-flash-badge">🔥 FLASH SALE</div></div>
+      <div class="prod-info">
+        <p class="prod-name">Pad Kawalan Wayarles Bluetooth 5.0 Semua Platform</p>
+        <div class="prod-price-row">
+          <span class="prod-price">RM 45</span>
+          <span class="prod-ori">RM 189</span>
+          <span class="prod-disc">-76%</span>
+        </div>
+        <p class="prod-sold">Terjual 7.8k</p>
+        <div class="sold-bar"><div class="sold-fill" style="width:88%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMO BANNER -->
+  <div class="section-hd" style="margin-top:1.5rem">
+    <h2>Program Istimewa</h2>
+  </div>
+  <div class="promo-grid">
+    <div class="promo-card promo-card-1">
+      <div class="promo-emoji">🎟️</div>
+      <div>
+        <strong>Voucher Percuma</strong>
+        <span>Tuntut sekarang, guna bila sahaja</span>
+      </div>
+    </div>
+    <div class="promo-card promo-card-2">
+      <div class="promo-emoji">💰</div>
+      <div>
+        <strong>Cashback Sehingga 30%</strong>
+        <span>Bayar dengan Shopee Pay</span>
+      </div>
+    </div>
+    <div class="promo-card promo-card-3">
+      <div class="promo-emoji">🚚</div>
+      <div>
+        <strong>Penghantaran Percuma</strong>
+        <span>Untuk semua pengguna baru</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL PRODUCTS -->
+  <div class="section-hd">
+    <h2>Cadangan Untuk Anda</h2>
+    <a href="#" class="see-all">Lihat Semua &rsaquo;</a>
+  </div>
+  <div class="all-products">
+    <div class="prod-card-b"><div class="prod-img">👟</div><div class="prod-info"><p class="prod-name">Kasut Sukan Ringan Bersol Getah Anti Slip Unisex</p><div class="prod-price-row"><span class="prod-price">RM 59</span><span class="prod-ori">RM 149</span></div><div class="prod-rating">★★★★★<span>(2.1k)</span></div><p class="prod-loc">Kuala Lumpur</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">👜</div><div class="prod-info"><p class="prod-name">Beg Tangan Wanita Kulit PU Premium Berzip 3 Ruang</p><div class="prod-price-row"><span class="prod-price">RM 79</span><span class="prod-ori">RM 220</span></div><div class="prod-rating">★★★★☆<span>(987)</span></div><p class="prod-loc">Selangor</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🖨️</div><div class="prod-info"><p class="prod-name">Pencetak Inkjet Warna A4 Wi-Fi Tanpa Dakwat Mahal</p><div class="prod-price-row"><span class="prod-price">RM 349</span><span class="prod-ori">RM 799</span></div><div class="prod-rating">★★★★★<span>(455)</span></div><p class="prod-loc">Penang</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🌿</div><div class="prod-info"><p class="prod-name">Set Penjaga Muka Organik 5-dalam-1 untuk Kulit Sensitif</p><div class="prod-price-row"><span class="prod-price">RM 38</span><span class="prod-ori">RM 98</span></div><div class="prod-rating">★★★★★<span>(3.4k)</span></div><p class="prod-loc">Johor Bahru</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🎒</div><div class="prod-info"><p class="prod-name">Beg Galas Pelajar Tahan Air USB Charging Port 30L</p><div class="prod-price-row"><span class="prod-price">RM 49</span><span class="prod-ori">RM 120</span></div><div class="prod-rating">★★★★☆<span>(1.8k)</span></div><p class="prod-loc">Kuala Lumpur</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🍳</div><div class="prod-info"><p class="prod-name">Kuali Non-stick Induksi 28cm Lapisan Granit German</p><div class="prod-price-row"><span class="prod-price">RM 65</span><span class="prod-ori">RM 180</span></div><div class="prod-rating">★★★★★<span>(672)</span></div><p class="prod-loc">Sabah</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🔌</div><div class="prod-info"><p class="prod-name">Pengecas Pantas 65W GaN 3-Port USB-C & USB-A</p><div class="prod-price-row"><span class="prod-price">RM 55</span><span class="prod-ori">RM 149</span></div><div class="prod-rating">★★★★★<span>(4.2k)</span></div><p class="prod-loc">Selangor</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">🪴</div><div class="prod-info"><p class="prod-name">Pasu Hiasan Seramik Matte Minimalis Set 3 Saiz</p><div class="prod-price-row"><span class="prod-price">RM 29</span><span class="prod-ori">RM 75</span></div><div class="prod-rating">★★★★☆<span>(521)</span></div><p class="prod-loc">Melaka</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">💆</div><div class="prod-info"><p class="prod-name">Urut Bahu & Leher Elektrik Inframerah Panas 3D Shiatsu</p><div class="prod-price-row"><span class="prod-price">RM 89</span><span class="prod-ori">RM 269</span></div><div class="prod-rating">★★★★★<span>(1.1k)</span></div><p class="prod-loc">Kuala Lumpur</p></div></div>
+    <div class="prod-card-b"><div class="prod-img">📚</div><div class="prod-info"><p class="prod-name">Buku Perancangan Tahunan 2025 Hardcover A5 Premium</p><div class="prod-price-row"><span class="prod-price">RM 22</span><span class="prod-ori">RM 55</span></div><div class="prod-rating">★★★★☆<span>(344)</span></div><p class="prod-loc">Perak</p></div></div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h4>Perkhidmatan Pelanggan</h4>
+      <ul>
+        <li><a href="#">Pusat Bantuan</a></li>
+        <li><a href="#">Cara Beli</a></li>
+        <li><a href="#">Bayaran & Invois</a></li>
+        <li><a href="#">Penghantaran</a></li>
+        <li><a href="#">Pulangan & Bayaran Balik</a></li>
+        <li><a href="#">Hubungi Kami</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tentang Shopee</h4>
+      <ul>
+        <li><a href="#">Mengenai Kami</a></li>
+        <li><a href="#">Kerjaya</a></li>
+        <li><a href="#">Dasar Privasi</a></li>
+        <li><a href="#">Terma & Syarat</a></li>
+        <li><a href="#">Program Affiliate</a></li>
+        <li><a href="#">Media & Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Jual Di Shopee</h4>
+      <ul>
+        <li><a href="#">Mula Jual</a></li>
+        <li><a href="#">Pusat Penjual</a></li>
+        <li><a href="#">Shopee Mall</a></li>
+        <li><a href="#">Pendidikan Penjual</a></li>
+        <li><a href="#">Iklan Penjual</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Muat Turun Aplikasi</h4>
+      <ul>
+        <li><a href="#">App Store</a></li>
+        <li><a href="#">Google Play</a></li>
+        <li><a href="#">AppGallery</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Shopee Sdn. Bhd. (Didaftarkan di Malaysia) — Hak cipta terpelihara.</p>
+    <div class="footer-pay">
+      <span class="pay-tag">Visa</span>
+      <span class="pay-tag">Mastercard</span>
+      <span class="pay-tag">FPX</span>
+      <span class="pay-tag">TNG</span>
+      <span class="pay-tag">GrabPay</span>
+      <span class="pay-tag">ShopeePay</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── MODAL: ENTER NAME ──────────────────────── -->
+<div class="overlay" id="overlay1" onclick="handleO1Click(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m1-title">
+    <div class="modal-header">
+      <h3 id="m1-title">🎟️ Tuntut Voucher Anda</h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Tutup">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Masukkan nama pengguna demo anda untuk menjana voucher diskaun peribadi secara rawak.</p>
+      <label class="modal-label" for="uname">Nama Pengguna Demo</label>
+      <input class="modal-input" type="text" id="uname" placeholder="cth. Aina Husna, Razif Shah…" maxlength="60" autocomplete="off"/>
+      <p class="modal-err" id="modal-err">Sila masukkan nama anda dahulu.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-submit" onclick="submitName()">Jana Voucher →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── COUPON RESULT ──────────────────────────── -->
+<div class="overlay2" id="overlay2" onclick="handleO2Click(event)">
+  <div class="coupon-modal" role="dialog" aria-modal="true">
+    <div class="coup-head">
+      <div class="coup-check">🎉</div>
+      <h3>Tahniah, <span id="coup-name">—</span>!</h3>
+      <p>Voucher eksklusif anda telah berjaya dijana.</p>
+    </div>
+    <div class="coup-body">
+      <div class="coup-pct"><sup>%</sup><span id="coup-pct">—</span></div>
+      <p class="coup-pct-label">Diskaun Peribadi</p>
+      <hr class="coup-divider"/>
+      <div class="coup-code-box">
+        <span>Kod Voucher</span>
+        <span class="coup-code-val" id="coup-code">—</span>
+      </div>
+      <p class="coup-msg" id="coup-msg">Anda telah berjaya menerima kupon sebanyak <strong id="coup-inline">—</strong>. Gunakan kod di atas semasa pembayaran di Shopee.</p>
+      <p class="coup-expiry">⏳ Tamat tempoh dalam 24 jam</p>
+      <button class="btn-use-now" onclick="closeAll()">Guna Sekarang</button>
+      <button class="btn-later" onclick="closeAll()">Simpan untuk Kemudian</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ──────────────────────────────────── -->
+<div class="toast" id="toast">✅ Voucher disalin ke papan klip!</div>
+
+<script>
+// Countdown
+(function(){
+  let total = 2*3600 + 47*60 + 31;
+  function tick(){
+    if(total<=0) return;
+    total--;
+    const h = String(Math.floor(total/3600)).padStart(2,'0');
+    const m = String(Math.floor((total%3600)/60)).padStart(2,'0');
+    const s = String(total%60).padStart(2,'0');
+    document.getElementById('cd-h').textContent=h;
+    document.getElementById('cd-m').textContent=m;
+    document.getElementById('cd-s').textContent=s;
+    setTimeout(tick,1000);
+  }
+  setTimeout(tick,1000);
+})();
+
+function openModal(){
+  document.getElementById('overlay1').classList.add('active');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('uname').focus(),350);
+}
+function closeModal(){
+  document.getElementById('overlay1').classList.remove('active');
+  document.body.style.overflow='';
+  document.getElementById('uname').value='';
+  document.getElementById('uname').classList.remove('err');
+  document.getElementById('modal-err').classList.remove('show');
+}
+function handleO1Click(e){if(e.target===document.getElementById('overlay1'))closeModal();}
+function handleO2Click(e){if(e.target===document.getElementById('overlay2'))closeAll();}
+
+function genCode(name){
+  const p = name.trim().substring(0,3).toUpperCase().replace(/[^A-Z]/g,'X')||'SKU';
+  return p+'-'+Math.floor(Math.random()*9000+1000);
+}
+
+function submitName(){
+  const inp = document.getElementById('uname');
+  const err = document.getElementById('modal-err');
+  const name = inp.value.trim();
+  if(!name){
+    inp.classList.add('err');
+    err.classList.add('show');
+    inp.focus();
+    return;
+  }
+  inp.classList.remove('err');
+  err.classList.remove('show');
+
+  const raw = Math.floor(Math.random()*91)+5;
+  const disc = Math.round(raw/5)*5;
+  const code = genCode(name);
+  const shortName = name.split(' ')[0];
+
+  document.getElementById('coup-name').textContent = shortName;
+  document.getElementById('coup-pct').textContent  = disc;
+  document.getElementById('coup-code').textContent = code;
+  document.getElementById('coup-inline').textContent = disc+'%';
+  document.getElementById('coup-msg').innerHTML =
+    'Anda telah berjaya menerima kupon sebanyak <strong>'+disc+'%</strong>. Gunakan kod di atas semasa pembayaran di Shopee.';
+
+  closeModal();
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{
+    document.getElementById('overlay2').classList.add('active');
+  },80);
+}
+
+function closeAll(){
+  document.getElementById('overlay2').classList.remove('active');
+  document.body.style.overflow='';
+}
+
+// Enter key
+document.getElementById('uname').addEventListener('keydown',function(e){
+  if(e.key==='Enter') submitName();
+});
+document.getElementById('uname').addEventListener('input',function(){
+  if(this.value.trim()){
+    this.classList.remove('err');
+    document.getElementById('modal-err').classList.remove('show');
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(document.getElementById('overlay2').classList.contains('active')) closeAll();
+    else if(document.getElementById('overlay1').classList.contains('active')) closeModal();
+  }
+});
+</script>
+</body>
+</html>
